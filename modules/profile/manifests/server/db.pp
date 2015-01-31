@@ -13,5 +13,8 @@ class profile::server::db {
 		mysql_dump_password => '',
 		db_exclude          => ['performance_schema', 'information_schema'],
 		table_exclude       => ['mysql.event'],
+		mysql_dump_latest => 'yes',
+		mysql_dump_latest_clean_filenames => 'yes',
+		mysql_dump_use_separate_dirs => 'yes',
 	}
 }
