@@ -84,35 +84,65 @@ class nginx {
 		mode => 770
 	}
 
-	file { 'nginx.conf':
-		notify => Service['nginx'],
-		path => '/etc/nginx/nginx.conf',
-		ensure => file,
-		source => 'puppet:///modules/nginx/nginx/nginx.conf',
+	file { '/etc/nginx/ssl':
+		ensure => directory,
 		owner => 'root',
 		group => 'root',
-		mode => 644
+		mode => 770
 	}
 
-	file { 'fastcgi.conf':
+	file { '/etc/nginx/ssl/localhost.crt':
 		notify => Service['nginx'],
-		path => '/etc/nginx/fastcgi.conf',
+		ensure => file,
+		source => 'puppet:///modules/nginx/nginx/localhost.crt',
+		owner => 'root',
+		group => 'root',
+		mode => 644,
+		require => File['/etc/nginx/ssl'],
+		before => File['/etc/nginx/nginx.conf'],
+	}
+
+	file { '/etc/nginx/ssl/localhost.key':
+		notify => Service['nginx'],
+		ensure => file,
+		source => 'puppet:///modules/nginx/nginx/localhost.key',
+		owner => 'root',
+		group => 'root',
+		mode => 644,
+		require => File['/etc/nginx/ssl'],
+		before => File['/etc/nginx/nginx.conf'],
+	}
+
+	file { '/etc/nginx/fastcgi.conf':
+		notify => Service['nginx'],
 		ensure => file,
 		source => 'puppet:///modules/nginx/nginx/fastcgi.conf',
 		owner => 'root',
 		group => 'root',
-		mode => 644
+		mode => 644,
+		before => File['/etc/nginx/nginx.conf'],
 	}
 
-	file { 'restrictions.conf':
+	file { '/etc/nginx/restrictions.conf':
 		notify => Service['nginx'],
-		path => '/etc/nginx/restrictions.conf',
 		ensure => file,
 		source => 'puppet:///modules/nginx/nginx/restrictions.conf',
 		owner => 'root',
 		group => 'root',
-		mode => 644
+		mode => 644,
+		before => File['/etc/nginx/nginx.conf'],
 	}
+
+
+	file { '/etc/nginx/nginx.conf':
+		notify => Service['nginx'],
+		ensure => file,
+		source => 'puppet:///modules/nginx/nginx/nginx.conf',
+		owner => 'root',
+		group => 'root',
+		mode => 644,
+	}
+
 
 	file { 'www.conf':
 		notify => Service[$fpm_service],
