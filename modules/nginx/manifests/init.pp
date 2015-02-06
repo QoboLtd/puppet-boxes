@@ -52,6 +52,14 @@ class nginx {
 		Amazon => '/etc/php-fpm-5.5.d/www.conf',
 	}
 
+	$nginx_folders = [
+		'/var/lib/php',
+		'/var/lib/php/session',
+		'/var/cache/nginx/',
+		'/var/cache/nginx/fastcgi',
+	]
+
+
 	# Make sure Apache is stopped
 	service { "httpd":
 		ensure => "stopped",
@@ -76,47 +84,75 @@ class nginx {
 		ensure => 'latest'
 	}
 
-	file { 'sessions':
-		path => '/var/lib/php/session',
+	file { $nginx_folders:
 		ensure => directory,
 		owner => 'nginx',
 		group => 'nginx',
 		mode => 770
 	}
 
-	file { 'nginx.conf':
-		notify => Service['nginx'],
-		path => '/etc/nginx/nginx.conf',
-		ensure => file,
-		source => 'puppet:///modules/nginx/nginx/nginx.conf',
+	file { '/etc/nginx/ssl':
+		ensure => directory,
 		owner => 'root',
 		group => 'root',
-		mode => 644
+		mode => 770
 	}
 
-	file { 'fastcgi.conf':
+	file { '/etc/nginx/ssl/localhost.crt':
 		notify => Service['nginx'],
-		path => '/etc/nginx/fastcgi.conf',
+		ensure => file,
+		source => 'puppet:///modules/nginx/nginx/localhost.crt',
+		owner => 'root',
+		group => 'root',
+		mode => 644,
+		require => File['/etc/nginx/ssl'],
+		before => File['/etc/nginx/nginx.conf'],
+	}
+
+	file { '/etc/nginx/ssl/localhost.key':
+		notify => Service['nginx'],
+		ensure => file,
+		source => 'puppet:///modules/nginx/nginx/localhost.key',
+		owner => 'root',
+		group => 'root',
+		mode => 644,
+		require => File['/etc/nginx/ssl'],
+		before => File['/etc/nginx/nginx.conf'],
+	}
+
+	file { '/etc/nginx/fastcgi.conf':
+		notify => Service['nginx'],
 		ensure => file,
 		source => 'puppet:///modules/nginx/nginx/fastcgi.conf',
 		owner => 'root',
 		group => 'root',
-		mode => 644
+		mode => 644,
+		before => File['/etc/nginx/nginx.conf'],
 	}
 
-	file { 'restrictions.conf':
+	file { '/etc/nginx/restrictions.conf':
 		notify => Service['nginx'],
-		path => '/etc/nginx/restrictions.conf',
 		ensure => file,
 		source => 'puppet:///modules/nginx/nginx/restrictions.conf',
 		owner => 'root',
 		group => 'root',
-		mode => 644
+		mode => 644,
+		before => File['/etc/nginx/nginx.conf'],
 	}
 
-	file { 'www.conf':
+
+	file { '/etc/nginx/nginx.conf':
+		notify => Service['nginx'],
+		ensure => file,
+		source => 'puppet:///modules/nginx/nginx/nginx.conf',
+		owner => 'root',
+		group => 'root',
+		mode => 644,
+	}
+
+
+	file { $fpm_file_path:
 		notify => Service[$fpm_service],
-		path => $fpm_file_path,
 		ensure => file,
 		source => 'puppet:///modules/nginx/php-fpm/www.conf',
 		owner => 'root',
@@ -124,8 +160,7 @@ class nginx {
 		mode => 644
 	}
 
-	file { 'composer':
-		path => '/usr/bin/composer',
+	file { '/usr/bin/composer':
 		ensure => file,
 		source => 'puppet:///modules/nginx/composer',
 		owner => 'root',
