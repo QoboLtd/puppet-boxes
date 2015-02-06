@@ -52,6 +52,14 @@ class nginx {
 		Amazon => '/etc/php-fpm-5.5.d/www.conf',
 	}
 
+	$nginx_folders = [
+		'/var/lib/php',
+		'/var/lib/php/session',
+		'/var/cache/nginx/',
+		'/var/cache/nginx/fastcgi',
+	]
+
+
 	# Make sure Apache is stopped
 	service { "httpd":
 		ensure => "stopped",
@@ -76,8 +84,7 @@ class nginx {
 		ensure => 'latest'
 	}
 
-	file { 'sessions':
-		path => '/var/lib/php/session',
+	file { $nginx_folders:
 		ensure => directory,
 		owner => 'nginx',
 		group => 'nginx',
@@ -144,9 +151,8 @@ class nginx {
 	}
 
 
-	file { 'www.conf':
+	file { $fpm_file_path:
 		notify => Service[$fpm_service],
-		path => $fpm_file_path,
 		ensure => file,
 		source => 'puppet:///modules/nginx/php-fpm/www.conf',
 		owner => 'root',
@@ -154,8 +160,7 @@ class nginx {
 		mode => 644
 	}
 
-	file { 'composer':
-		path => '/usr/bin/composer',
+	file { '/usr/bin/composer':
 		ensure => file,
 		source => 'puppet:///modules/nginx/composer',
 		owner => 'root',
