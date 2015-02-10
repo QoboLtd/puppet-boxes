@@ -60,12 +60,6 @@ class nginx {
 	]
 
 
-	# Make sure Apache is stopped
-	service { "httpd":
-		ensure => "stopped",
-		enable => "false"
-	}
-
 	service { $fpm_service:
 		ensure => "running",
 		enable => "true"
@@ -74,10 +68,6 @@ class nginx {
 	service { 'nginx':
 		ensure => "running",
 		enable => "true"
-	}
-
-	package { ['httpd-tools', 'httpd']:
-		ensure => 'purged'
 	}
 
 	package { $install_packages:
