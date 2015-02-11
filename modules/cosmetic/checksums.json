@@ -1,0 +1,17 @@
+{
+  "ChangeLog.md": "4ec2e75acd9bee940984f7674dc45f9b",
+  "LICENSE": "83e46d88c72d131428fd758472adc03a",
+  "README.md": "8f59ef1e3c10109a452ae581566a4c27",
+  "manifests/bash.pp": "4fd64063cd7e07701531591f9b43cc44",
+  "manifests/release.pp": "f3961632bcfcecb709140bb61854ab3d",
+  "manifests/vimrc.pp": "ce0a5333c870ca8c44c0c8cdeec7cd8d",
+  "metadata.json": "695bc643f14fe847b530216d0ec3a5b0",
+  "templates/cosmetic.sh.erb": "68b90706b0bf504b9f95d385be729b86",
+  "templates/release.erb": "d174e252ee1ef601884f2b06d94bd7ff",
+  "templates/release.init.erb": "7971c7b1d34e1cb9995ce9c5475fe3ac",
+  "templates/release.systemd.erb": "2acad9ce35b17d550cd8adb40ea8d5ce",
+  "templates/vimrc.erb": "fc02fceeca2142658ecb612aff32f18f",
+  "tests/bash.pp": "28a097c9d62de7e24ef86b6358675c51",
+  "tests/release.pp": "10b2c86bf01180b4c4d9b4a38627c33b",
+  "tests/vimrc.pp": "b6fd77e133b7f6c73625dba312089058"
+}
