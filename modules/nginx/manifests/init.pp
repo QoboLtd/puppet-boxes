@@ -1,74 +1,14 @@
 class nginx {
 
-	# These are the same packages, sorted alphabetically
-	$install_packages = $operatingsystem ? {
-		Amazon => [
-			'nginx', 
-			'php55-cli', 
-			'php55-fpm', 
-			'php55-gd', 
-			'php55-mbstring', 
-			'php55-mcrypt',
-			'php55-mysqlnd', 
-			'php55-pdo', 
-			'php55-soap', 
-			'php55-xml', 
-		],
-		Fedora => [
-			'nginx', 
-			'php-cli', 
-			'php-fpm', 
-			'php-gd', 
-			'php-mbstring', 
-			'php-mcrypt',
-			'php-mysqlnd', 
-			'php-pdo', 
-			'php-soap', 
-			'php-xml', 
-		],
-		default => [
-			'nginx', 
-			'php-cli', 
-			'php-fpm', 
-			'php-gd', 
-			'php-mbstring', 
-			'php-mcrypt',
-			'php-mysqlnd', 
-			'php-pdo', 
-			'php-soap', 
-			'php-xml', 
-		],
-	}
+	$packages = ['nginx']
 
-	$fpm_service = $operatingsystem ? {
-		Fedora => 'php-fpm',
-		CentOS => 'php-fpm',
-		Amazon => 'php-fpm-5.5',
-	}
-
-	$fpm_file_path = $operatingsystem ? {
-		Fedora => '/etc/php-fpm.d/www.conf',
-		CentOS => '/etc/php-fpm.d/www.conf',
-		Amazon => '/etc/php-fpm-5.5.d/www.conf',
-	}
-
-	$nginx_folders = [
-		'/var/lib/php',
-		'/var/lib/php/session',
+	$folders = [
 		'/var/cache/nginx/',
 		'/var/cache/nginx/fastcgi',
 	]
 
-
-	# Make sure Apache is stopped
-	service { "httpd":
-		ensure => "stopped",
-		enable => "false"
-	}
-
-	service { $fpm_service:
-		ensure => "running",
-		enable => "true"
+	package { $packages:
+		ensure => 'latest'
 	}
 
 	service { 'nginx':
@@ -76,15 +16,7 @@ class nginx {
 		enable => "true"
 	}
 
-	package { ['httpd-tools', 'httpd']:
-		ensure => 'purged'
-	}
-
-	package { $install_packages:
-		ensure => 'latest'
-	}
-
-	file { $nginx_folders:
+	file { $folders:
 		ensure => directory,
 		owner => 'nginx',
 		group => 'nginx',
@@ -101,7 +33,7 @@ class nginx {
 	file { '/etc/nginx/ssl/localhost.crt':
 		notify => Service['nginx'],
 		ensure => file,
-		source => 'puppet:///modules/nginx/nginx/localhost.crt',
+		source => 'puppet:///modules/nginx/localhost.crt',
 		owner => 'root',
 		group => 'root',
 		mode => 644,
@@ -112,7 +44,7 @@ class nginx {
 	file { '/etc/nginx/ssl/localhost.key':
 		notify => Service['nginx'],
 		ensure => file,
-		source => 'puppet:///modules/nginx/nginx/localhost.key',
+		source => 'puppet:///modules/nginx/localhost.key',
 		owner => 'root',
 		group => 'root',
 		mode => 644,
@@ -123,7 +55,7 @@ class nginx {
 	file { '/etc/nginx/fastcgi.conf':
 		notify => Service['nginx'],
 		ensure => file,
-		source => 'puppet:///modules/nginx/nginx/fastcgi.conf',
+		source => 'puppet:///modules/nginx/fastcgi.conf',
 		owner => 'root',
 		group => 'root',
 		mode => 644,
@@ -133,39 +65,21 @@ class nginx {
 	file { '/etc/nginx/restrictions.conf':
 		notify => Service['nginx'],
 		ensure => file,
-		source => 'puppet:///modules/nginx/nginx/restrictions.conf',
+		source => 'puppet:///modules/nginx/restrictions.conf',
 		owner => 'root',
 		group => 'root',
 		mode => 644,
 		before => File['/etc/nginx/nginx.conf'],
 	}
 
-
 	file { '/etc/nginx/nginx.conf':
 		notify => Service['nginx'],
 		ensure => file,
-		source => 'puppet:///modules/nginx/nginx/nginx.conf',
+		source => 'puppet:///modules/nginx/nginx.conf',
 		owner => 'root',
 		group => 'root',
 		mode => 644,
 	}
 
-
-	file { $fpm_file_path:
-		notify => Service[$fpm_service],
-		ensure => file,
-		source => 'puppet:///modules/nginx/php-fpm/www.conf',
-		owner => 'root',
-		group => 'root',
-		mode => 644
-	}
-
-	file { '/usr/bin/composer':
-		ensure => file,
-		source => 'puppet:///modules/nginx/composer',
-		owner => 'root',
-		group => 'root',
-		mode => 755
-	}
 
 }

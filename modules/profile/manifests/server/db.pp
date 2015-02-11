@@ -3,7 +3,6 @@ class profile::server::db {
 
 	include profile::server
 	include mysql
-	include mysql::client
 
 	class { 'automysqlbackup':
 		backup_dir          => '/var/backup',
