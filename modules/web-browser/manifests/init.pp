@@ -1,8 +1,8 @@
 class web-browser {
 	include  '::chromerepo'
-	include flash-plugin
+	include  '::adoberepo'
 
-	package { ['firefox', 'google-chrome-stable']:
+	package { ['flash-plugin', 'firefox', 'google-chrome-stable']:
 		ensure => 'latest'
 	}
 }
