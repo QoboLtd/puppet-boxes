@@ -1,0 +1,39 @@
+{
+  "name": "juniorsysadmin-adoberepo",
+  "version": "0.0.4",
+  "author": "Ben Spiccia",
+  "summary": "Module for installing the Adobe YUM repository",
+  "license": "Apache-2.0",
+  "source": "git://github.com/juniorsysadmin/puppet-adoberepo.git",
+  "project_page": "https://github.com/juniorsysadmin/puppet-adoberepo",
+  "issues_url": "https://github.com/juniorsysadmin/puppet-adoberepo/issues",
+  "tags": [
+    "adobe",
+    "flash"
+  ],
+  "operatingsystem_support": [
+    {
+      "operatingsystem": "Fedora",
+      "operatingsystemrelease": [
+        "20",
+        "21"
+      ]
+    }
+  ],
+  "requirements": [
+    {
+      "name": "pe",
+      "version_requirement": "3.x"
+    },
+    {
+      "name": "puppet",
+      "version_requirement": ">=2.7.20 < 4.0.0"
+    }
+  ],
+  "dependencies": [
+    {
+      "name": "treydock/gpg_key",
+      "version_requirement": ">= 0.0.3 < 1.0.0"
+    }
+  ]
+}

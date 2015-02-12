@@ -1,7 +1,6 @@
 class php {
 
 	include php::config
-	include php::composer
 	include php::fpm
 
 	$folders = [
@@ -39,4 +38,11 @@ class php {
 		mode => 770,
 		require => Package['nginx']
 	}
+
+	class { '::composer':
+		command_name => 'composer',
+		target_dir   => '/usr/bin',
+		auto_update  => true
+	}
+
 }
