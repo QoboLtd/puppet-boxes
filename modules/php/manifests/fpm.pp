@@ -17,6 +17,7 @@ class php::fpm {
 
 	package { $packages:
 		ensure => 'latest',
+		notify => Service[$service],
 	}
 
 	service { $service:

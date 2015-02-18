@@ -21,7 +21,8 @@ class mysql {
 	}
 
 	package { $install_packages:
-		ensure => 'latest'
+		ensure => 'latest',
+		notify => Service[$mysql_service],
 	}
 
 	file { 'my.cnf':
