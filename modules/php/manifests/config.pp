@@ -3,7 +3,7 @@ class php::config {
 	file_line { 'date.timezone':
 		path => '/etc/php.ini',
 		line => 'date.timezone = "Asia/Nicosia"',
-		match => '^*date.timezone =.*',
+		match => '^.*date.timezone =.*',
 	}
 
 	file_line { 'upload_max_filesize':
