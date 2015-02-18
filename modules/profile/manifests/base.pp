@@ -11,6 +11,7 @@ class profile::base {
 		'screen',
 		'mc',
 		'vim-enhanced',
+		'ctags',
 	]
 
 	package { $enhancers:
