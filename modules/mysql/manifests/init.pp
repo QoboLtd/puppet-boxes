@@ -3,29 +3,30 @@ class mysql {
 
 	include mysql::client
 
-	$install_packages = $operatingsystem ? {
+	$packages = $operatingsystem ? {
 		Amazon => ['mysql55-server'],
 		Fedora => ['mariadb-server'],
 		default => ['mysql-server'],
 	}
 
-	$mysql_service = $operatingsystem ? {
+	$service = $operatingsystem ? {
 		Fedora => 'mariadb',
 		default => 'mysqld',
 	}
 
 
-	service { $mysql_service:
+	service { $service:
 		ensure => "running",
 		enable => "true"
 	}
 
-	package { $install_packages:
-		ensure => 'latest'
+	package { $packages:
+		ensure => 'latest',
+		notify => Service[$service],
 	}
 
 	file { 'my.cnf':
-		notify => Service[$mysql_service],
+		notify => Service[$service],
 		path => '/etc/my.cnf',
 		ensure => file,
 		source => 'puppet:///modules/mysql/my.cnf',

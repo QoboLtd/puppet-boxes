@@ -5,10 +5,7 @@ class php::fpm {
 		default => ['php-fpm'],
 	}
 
-	$service = $operatingsystem ? {
-		Amazon => 'php-fpm-5.5',
-		default => 'php-fpm',
-	}
+	$service = 'php-fpm'
 
 	$pool_file = $operatingsystem ? {
 		Amazon => '/etc/php-fpm-5.5.d/www.conf',
@@ -17,6 +14,7 @@ class php::fpm {
 
 	package { $packages:
 		ensure => 'latest',
+		notify => Service[$service],
 	}
 
 	service { $service:
