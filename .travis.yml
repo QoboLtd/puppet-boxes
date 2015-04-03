@@ -6,5 +6,6 @@ rvm:
     - 1.9
     - 1.8
 before_install:
-    - sudo apt-get install -qq puppet
+    - sudo apt-get update -qq
+    - sudo apt-get install -y puppet
 script: ./test
