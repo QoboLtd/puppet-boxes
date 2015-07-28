@@ -3,7 +3,7 @@
 # This is useful for Amazon EC2 nodes in VPC, where reverse DNS is not
 # supported.  The web service should return just the hostname in
 # plain/text type.  The lookup can be done by the remote IP.
-class hostname ($hostname_lookup_url = 'http://core.qobo.qobocloud.com/hostname') {
+class hostname ($hostname_lookup_url = 'https://api.qobo.biz/aws/hostname') {
 
 	$required = $operatingsystem ? {
 		/(?i:RedHat|CentOS|Amazon)/ => ['bash', 'wget', 'perl', 'net-tools'],
