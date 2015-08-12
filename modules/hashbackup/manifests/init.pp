@@ -7,7 +7,7 @@ class hashbackup (
 	$dedup_memory=100m,
 	$max_file_size=1g,
 	$retain_policy='-t all',
-	$backup_targets='/etc /root /home /var/www /var/spool/mail /var/log'
+	$backup_targets='/etc /root /home /opt /var/www /var/spool/mail /var/log'
 	) {
 
 
