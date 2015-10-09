@@ -9,20 +9,11 @@ class nginx {
 
 	package { $packages:
 		ensure => 'latest'
-		require => File['/etc/yum.repos.d/nginx.repo'],
 	}
 
 	service { 'nginx':
 		ensure => "running",
 		enable => "true"
-	}
-
-	file { '/etc/yum.repos.d/nginx.repo':
-		ensure => file,
-		source => 'puppet:///modules/nginx/nginx.repo',
-		owner => 'root',
-		group => 'root',
-		mode => 644,
 	}
 
 	file { $folders:
