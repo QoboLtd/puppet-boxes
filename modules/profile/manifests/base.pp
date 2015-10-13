@@ -29,14 +29,6 @@ class profile::base {
 		swapfile => '/swapfile'
 	}
 
-	# Bash prompt with colors
-	class { '::cosmetic::bash':
-		# Green user with blue directory
-		ps1 => '[\[\033[01;32m\]\u\[\033[00m\]@\H\[\033[01;34m\] \w\[\033[00m\]]\$ ',
-		# Red user with blue directory
-		ps1_root => '[\[\033[01;31m\]\u\[\033[00m\]@\H\[\033[01;34m\] \w\[\033[00m\]]\$ ',
-	}
-
 	# Tweak sysctl
 	# Thanks to: https://rtcamp.com/tutorials/linux/sysctl-conf/
 
