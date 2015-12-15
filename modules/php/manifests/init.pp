@@ -10,15 +10,15 @@ class php {
 
 	$packages = $operatingsystem ? {
 		Amazon => [
-			'php55-cli', 
-			'php55-gd', 
-			'php55-mbstring', 
-			'php55-mcrypt',
-			'php55-mysqlnd', 
-			'php55-opcache',
-			'php55-pdo', 
-			'php55-soap', 
-			'php55-xml', 
+			'php56-cli',
+			'php56-gd',
+			'php56-mbstring',
+			'php56-mcrypt',
+			'php56-mysqlnd',
+			'php56-opcache',
+			'php56-pdo',
+			'php56-soap',
+			'php56-xml',
 		],
 		default => [
 			'php-cli', 
