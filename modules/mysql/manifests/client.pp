@@ -3,8 +3,7 @@ class mysql::client {
 
 	$install_packages = $operatingsystem ? {
 		Amazon => ['mysql55'],
-		Fedora => ['mariadb'],
-		default => ['mysql'],
+		default => ['mariadb']
 	}
 
 	package { $install_packages:
