@@ -36,13 +36,13 @@ class hashbackup (
 
 	case $operatingsystem {
 			/(?i:RedHat|CentOS|Amazon|Fedora)/: {
-				file { "/etc/cron.daily/hashbackup.sh":
+				file { '/etc/cron.daily/hashbackup.sh':
 					require => File[$hashbackup],
 					content => template('hashbackup/hashbackup.sh.erb'),
-					ensure => "file",
+					ensure => 'file',
 					mode => '755',
-					owner => "root",
-					group => "root",
+					owner => 'root',
+					group => 'root',
 					backup => false
 				}
 			}
