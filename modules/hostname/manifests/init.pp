@@ -6,22 +6,22 @@
 class hostname ($hostname_lookup_url = 'https://api.qobo.biz/aws/hostname') {
 
 	$required = $operatingsystem ? {
-		'Amazon => ['bash', 'wget', 'perl', 'net-tools'],
+		'Amazon' => ['bash', 'wget', 'perl', 'net-tools'],
 		default => ['bash', 'wget', 'perl', 'hostname'],
 	}
 
 	case $operatingsystem {
 		/(?i:RedHat|CentOS|Amazon|Fedora)/: {
 			package { $required :
-				ensure => "present"
+				ensure => 'present'
 			}
 
-			file { "/etc/cron.hourly/hostname.sh":
+			file { '/etc/cron.hourly/hostname.sh':
 				content => template('hostname/hostname.sh.erb'),
-				ensure => "present",
-				mode => 755,
-				owner => "root",
-				group => "root"
+				ensure => 'present',
+				mode => '755',
+				owner => 'root',
+				group => 'root'
 			}
 
 		}
