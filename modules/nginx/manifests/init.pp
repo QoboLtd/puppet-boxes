@@ -12,22 +12,22 @@ class nginx {
 	}
 
 	service { 'nginx':
-		ensure => "running",
-		enable => "true"
+		ensure => 'running',
+		enable => 'true'
 	}
 
 	file { $folders:
 		ensure => directory,
 		owner => 'nginx',
 		group => 'nginx',
-		mode => 770
+		mode => '770'
 	}
 
 	file { '/etc/nginx/ssl':
 		ensure => directory,
 		owner => 'root',
 		group => 'root',
-		mode => 770
+		mode => '770'
 	}
 
 	file { '/etc/nginx/ssl/localhost.crt':
@@ -36,7 +36,7 @@ class nginx {
 		source => 'puppet:///modules/nginx/localhost.crt',
 		owner => 'root',
 		group => 'root',
-		mode => 644,
+		mode => '644',
 		require => File['/etc/nginx/ssl'],
 		before => File['/etc/nginx/nginx.conf'],
 	}
@@ -47,7 +47,7 @@ class nginx {
 		source => 'puppet:///modules/nginx/localhost.key',
 		owner => 'root',
 		group => 'root',
-		mode => 644,
+		mode => '644',
 		require => File['/etc/nginx/ssl'],
 		before => File['/etc/nginx/nginx.conf'],
 	}
@@ -58,7 +58,7 @@ class nginx {
 		source => 'puppet:///modules/nginx/fastcgi.conf',
 		owner => 'root',
 		group => 'root',
-		mode => 644,
+		mode => '644',
 		before => File['/etc/nginx/nginx.conf'],
 	}
 
@@ -68,7 +68,7 @@ class nginx {
 		source => 'puppet:///modules/nginx/restrictions.conf',
 		owner => 'root',
 		group => 'root',
-		mode => 644,
+		mode => '644',
 		before => File['/etc/nginx/nginx.conf'],
 	}
 
@@ -78,7 +78,7 @@ class nginx {
 		source => 'puppet:///modules/nginx/nginx.conf',
 		owner => 'root',
 		group => 'root',
-		mode => 644,
+		mode => '644',
 	}
 
 

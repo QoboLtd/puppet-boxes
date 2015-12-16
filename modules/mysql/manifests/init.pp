@@ -5,8 +5,7 @@ class mysql {
 
 	$packages = $operatingsystem ? {
 		Amazon => ['mysql55-server'],
-		Fedora => ['mariadb-server'],
-		default => ['mysql-server'],
+		default => ['mariadb-server']
 	}
 
 	$service = $operatingsystem ? {

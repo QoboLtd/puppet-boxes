@@ -37,7 +37,7 @@ class php {
 		ensure => directory,
 		owner => 'nginx',
 		group => 'nginx',
-		mode => 770,
+		mode => '770',
 		require => Package['nginx']
 	}
 
