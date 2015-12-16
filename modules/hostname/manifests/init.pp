@@ -6,8 +6,8 @@
 class hostname ($hostname_lookup_url = 'https://api.qobo.biz/aws/hostname') {
 
 	$required = $operatingsystem ? {
-		/(?i:RedHat|CentOS|Amazon)/ => ['bash', 'wget', 'perl', 'net-tools'],
-		/(?i:Fedora)/               => ['bash', 'wget', 'perl', 'hostname'],
+		'Amazon => ['bash', 'wget', 'perl', 'net-tools'],
+		default => ['bash', 'wget', 'perl', 'hostname'],
 	}
 
 	case $operatingsystem {
