@@ -4,8 +4,8 @@ class hashbackup (
 	$backup_dir='/var/backup/files',
 	$check_hb_updates='yes',
 	$verbose=0,
-	$dedup_memory=100m,
-	$max_file_size=1g,
+	$dedup_memory='100m',
+	$max_file_size='1g',
 	$retain_policy='-t all',
 	$backup_targets='/etc /root /home /opt /var/www /var/spool/mail /var/log'
 	) {
@@ -22,7 +22,7 @@ class hashbackup (
 		source => $binary,
 		owner => 'root',
 		group => 'root',
-		mode => 755,
+		mode => '755',
 		backup => false
 	}
 
@@ -32,7 +32,7 @@ class hashbackup (
 					require => File[$hashbackup],
 					content => template('hashbackup/hashbackup.sh.erb'),
 					ensure => "file",
-					mode => 755,
+					mode => '755',
 					owner => "root",
 					group => "root",
 					backup => false

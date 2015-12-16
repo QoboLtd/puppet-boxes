@@ -2,9 +2,9 @@ class ntp {
 
 	# Dtermine util-linux package based on the operatingsystem fact
 	$util_linux = $operatingsystem ? {
-		Fedora => 'util-linux',
-		Amazon => 'util-linux',
-		CentOS => 'util-linux-ng',
+		'Fedora' => 'util-linux',
+		'Amazon' => 'util-linux',
+		'CentOS' => 'util-linux-ng',
 	}
 
 	# Stop the service. We use scheduled cron instead
@@ -30,6 +30,6 @@ class ntp {
 		source => 'puppet:///modules/ntp/ntpdate',
 		owner => 'root',
 		group => 'root',
-		mode => 755
+		mode => '755'
 	}
 }
