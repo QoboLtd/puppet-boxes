@@ -26,14 +26,6 @@ class hashbackup (
 		backup => false
 	}
 
-	# This is not elegant at all
-	file { ['/var/backup', $backup_dir]:
-		ensure => directory,
-		owner => 'root',
-		group => 'root',
-		mode => '755',
-	}
-
 	case $operatingsystem {
 			/(?i:RedHat|CentOS|Amazon|Fedora)/: {
 				file { '/etc/cron.daily/hashbackup.sh':
