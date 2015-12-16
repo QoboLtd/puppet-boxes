@@ -3,8 +3,8 @@ class nagios::nrpe {
 	$nrpe = ['nrpe','nagios-plugins-all']
 
 	service { 'nrpe':
-		ensure => "running",
-		enable => "true"
+		ensure => 'running',
+		enable => 'true'
 	}
 
 	package { $nrpe:
@@ -18,8 +18,7 @@ class nagios::nrpe {
 		source => 'puppet:///modules/nagios/nrpe.cfg',
 		owner => 'root',
 		group => 'root',
-		mode => 644
+		mode => '644'
 	}
-
 
 }
